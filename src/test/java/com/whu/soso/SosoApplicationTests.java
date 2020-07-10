@@ -14,12 +14,13 @@ import org.springframework.util.Assert;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
- public class SosoApplicationTests {
+public class SosoApplicationTests {
 
     @Autowired
     private DriverRepository driverRepository;
     @Autowired
     private OrderListRepository orderListRepository;
+
     @Test
     public void contextLoads() {
 //        Driver test = new Driver();

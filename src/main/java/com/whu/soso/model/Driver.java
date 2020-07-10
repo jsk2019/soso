@@ -1,7 +1,6 @@
 package com.whu.soso.model;
 
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,8 +10,8 @@ import java.util.Arrays;
 @Entity
 public class Driver {
     @Id
-    @Column(unique=true)
-    private Long tellphone;
+    @Column(unique = true)
+    private String telephone;
     //密码
     private String password;
     //身份证号
@@ -34,27 +33,27 @@ public class Driver {
     //车辆照片
     private String car_pic;
     //接单量
-    private Integer order_num;
+    private int order_num;
     //0星数
-    private Integer zero_star;
+    private int zero_star;
     //1星数
-    private Integer one_star;
+    private int one_star;
     //2星数
-    private Integer two_star;
+    private int two_star;
     //3星数
-    private Integer three_star;
+    private int three_star;
     //4星数
-    private Integer four_star;
+    private int four_star;
     //5星数
-    private Integer five_star;
+    private int five_star;
     //注册天数
-    private Integer registration_day;
+    private int registration_day;
     //账户余额
-    private Integer Balance;
+    private int Balance;
     //手机外网IP地址
     private String IP_adress;
     //工作状态
-    private Integer status;
+    private int status;
     //经度
     private String longitude;
     //纬度
@@ -62,12 +61,12 @@ public class Driver {
     //城市
     private String city;
 
-    public Long getTellphone() {
-        return tellphone;
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setTellphone(Long tellphone) {
-        this.tellphone = tellphone;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
     public String getPassword() {
@@ -150,75 +149,75 @@ public class Driver {
         this.car_pic = car_pic;
     }
 
-    public Integer getOrder_num() {
+    public int getOrder_num() {
         return order_num;
     }
 
-    public void setOrder_num(Integer order_num) {
+    public void setOrder_num(int order_num) {
         this.order_num = order_num;
     }
 
-    public Integer getZero_star() {
+    public int getZero_star() {
         return zero_star;
     }
 
-    public void setZero_star(Integer zero_star) {
+    public void setZero_star(int zero_star) {
         this.zero_star = zero_star;
     }
 
-    public Integer getOne_star() {
+    public int getOne_star() {
         return one_star;
     }
 
-    public void setOne_star(Integer one_star) {
+    public void setOne_star(int one_star) {
         this.one_star = one_star;
     }
 
-    public Integer getTwo_star() {
+    public int getTwo_star() {
         return two_star;
     }
 
-    public void setTwo_star(Integer two_star) {
+    public void setTwo_star(int two_star) {
         this.two_star = two_star;
     }
 
-    public Integer getThree_star() {
+    public int getThree_star() {
         return three_star;
     }
 
-    public void setThree_star(Integer three_star) {
+    public void setThree_star(int three_star) {
         this.three_star = three_star;
     }
 
-    public Integer getFour_star() {
+    public int getFour_star() {
         return four_star;
     }
 
-    public void setFour_star(Integer four_star) {
+    public void setFour_star(int four_star) {
         this.four_star = four_star;
     }
 
-    public Integer getFive_star() {
+    public int getFive_star() {
         return five_star;
     }
 
-    public void setFive_star(Integer five_star) {
+    public void setFive_star(int five_star) {
         this.five_star = five_star;
     }
 
-    public Integer getRegistration_day() {
+    public int getRegistration_day() {
         return registration_day;
     }
 
-    public void setRegistration_day(Integer registration_day) {
+    public void setRegistration_day(int registration_day) {
         this.registration_day = registration_day;
     }
 
-    public Integer getBalance() {
+    public int getBalance() {
         return Balance;
     }
 
-    public void setBalance(Integer balance) {
+    public void setBalance(int balance) {
         Balance = balance;
     }
 
@@ -230,11 +229,11 @@ public class Driver {
         this.IP_adress = IP_adress;
     }
 
-    public Integer getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

@@ -10,9 +10,8 @@ import java.util.Date;
 @Entity
 public class OrderList {
     @Id
-    @GeneratedValue(strategy =  GenerationType.AUTO)
-    @Column(length=20)
-    private Long id;
+    @Column(length = 20)
+    private String id;
 
     //乘客手机号码
     @OneToOne
@@ -30,7 +29,7 @@ public class OrderList {
     private Date Appointment;
 
     //订单类型
-    private Integer order_type;
+    private int order_type;
 
     //上车地点
     private String origin_address;
@@ -51,16 +50,16 @@ public class OrderList {
     private Double des_latitude;
 
     //订单状态
-    private Integer status;
+    private int status;
 
     //订单金额
-    private Integer order_money;
+    private int order_money;
 
     //订单取消原因
     private String cancel_reason;
 
     //已行驶路程
-    private Integer already_driver;
+    private int already_driver;
 
     @Temporal(TemporalType.TIMESTAMP)
     //实际出发时间
@@ -75,19 +74,19 @@ public class OrderList {
 
 
     @PreUpdate
-    public void setStatus(){
+    public void setStatus() {
 
-        if (this.order_type==0&this.driver!=null){
+        if (this.order_type == 0 & this.driver != null) {
             this.driver.setStatus(2);
         }
     }
 
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -123,11 +122,11 @@ public class OrderList {
         Appointment = appointment;
     }
 
-    public Integer getOrder_type() {
+    public int getOrder_type() {
         return order_type;
     }
 
-    public void setOrder_type(Integer order_type) {
+    public void setOrder_type(int order_type) {
         this.order_type = order_type;
     }
 
@@ -179,19 +178,19 @@ public class OrderList {
         this.des_latitude = des_latitude;
     }
 
-    public Integer getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
-    public Integer getOrder_money() {
+    public int getOrder_money() {
         return order_money;
     }
 
-    public void setOrder_money(Integer order_money) {
+    public void setOrder_money(int order_money) {
         this.order_money = order_money;
     }
 
@@ -203,11 +202,11 @@ public class OrderList {
         this.cancel_reason = cancel_reason;
     }
 
-    public Integer getAlready_driver() {
+    public int getAlready_driver() {
         return already_driver;
     }
 
-    public void setAlready_driver(Integer already_driver) {
+    public void setAlready_driver(int already_driver) {
         this.already_driver = already_driver;
     }
 

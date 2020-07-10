@@ -7,9 +7,9 @@ import java.util.Date;
 @Entity
 public class ChatRecord {
     @Id
-    @GeneratedValue(strategy =  GenerationType.AUTO)
-    @Column(unique=true)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(unique = true)
+    private int id;
 
     //用户手机号码
     private String user_tell;
@@ -21,11 +21,11 @@ public class ChatRecord {
     //消息记录
     private String record;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

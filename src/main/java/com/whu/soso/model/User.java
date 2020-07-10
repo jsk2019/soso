@@ -9,8 +9,8 @@ import java.util.Arrays;
 @Entity
 public class User {
     @Id
-    @Column(unique=true)
-    private Long tellphone ;
+    @Column(unique = true)
+    private String telephone;
     //密码
     private String password;
     //昵称
@@ -18,11 +18,11 @@ public class User {
     //头像
     private String avatar;
     //优惠卷1
-    private Integer one_coupon;
+    private int one_coupon;
     //优惠卷2
-    private Integer two_coupon;
+    private int two_coupon;
     //优惠卷3
-    private Integer three_coupon;
+    private int three_coupon;
     //经度
     private Double longitude;
     //纬度
@@ -30,12 +30,12 @@ public class User {
     //城市
     private String city;
 
-    public Long getTellphone() {
-        return tellphone;
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setTellphone(Long tellphone) {
-        this.tellphone = tellphone;
+    public void setTelephone(String tellphone) {
+        this.telephone = tellphone;
     }
 
     public String getPassword() {
@@ -62,27 +62,27 @@ public class User {
         this.avatar = avatar;
     }
 
-    public Integer getOne_coupon() {
+    public int getOne_coupon() {
         return one_coupon;
     }
 
-    public void setOne_coupon(Integer one_coupon) {
+    public void setOne_coupon(int one_coupon) {
         this.one_coupon = one_coupon;
     }
 
-    public Integer getTwo_coupon() {
+    public int getTwo_coupon() {
         return two_coupon;
     }
 
-    public void setTwo_coupon(Integer two_coupon) {
+    public void setTwo_coupon(int two_coupon) {
         this.two_coupon = two_coupon;
     }
 
-    public Integer getThree_coupon() {
+    public int getThree_coupon() {
         return three_coupon;
     }
 
-    public void setThree_coupon(Integer three_coupon) {
+    public void setThree_coupon(int three_coupon) {
         this.three_coupon = three_coupon;
     }
 
