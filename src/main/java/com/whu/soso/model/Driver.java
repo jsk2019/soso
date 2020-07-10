@@ -51,7 +51,7 @@ public class Driver {
     //账户余额
     private int Balance;
     //手机外网IP地址
-    private String IP_adress;
+    private String IP_address;
     //工作状态
     private int status;
     //经度
@@ -61,6 +61,7 @@ public class Driver {
     //城市
     private String city;
 
+
     public String getTelephone() {
         return telephone;
     }
@@ -68,6 +69,7 @@ public class Driver {
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
+
 
     public String getPassword() {
         return password;
@@ -221,12 +223,12 @@ public class Driver {
         Balance = balance;
     }
 
-    public String getIP_adress() {
-        return IP_adress;
+    public String getIP_address() {
+        return IP_address;
     }
 
-    public void setIP_adress(String IP_adress) {
-        this.IP_adress = IP_adress;
+    public void setIP_address(String IP_address) {
+        this.IP_address = IP_address;
     }
 
     public int getStatus() {

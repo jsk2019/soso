@@ -30,13 +30,16 @@ public class User {
     //城市
     private String city;
 
+
     public String getTelephone() {
+
         return telephone;
     }
 
-    public void setTelephone(String tellphone) {
-        this.telephone = tellphone;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
+
 
     public String getPassword() {
         return password;
