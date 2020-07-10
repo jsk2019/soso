@@ -22,10 +22,10 @@ import org.springframework.util.Assert;
     private OrderListRepository orderListRepository;
     @Test
     public void contextLoads() {
-//        Driver test = new Driver();
-//        test.setTellphone(12345678910L);
-//        test.setStatus(0);
-//        driverRepository.save(test);
+        Driver test = new Driver();
+        test.setTellphone("12345678910");
+        test.setStatus(0);
+        driverRepository.save(test);
 //        Driver driver = driverRepository.findByTellphone(12345678910L);
 //        OrderList orderList = new OrderList();
 //        orderList.setStatus(0);

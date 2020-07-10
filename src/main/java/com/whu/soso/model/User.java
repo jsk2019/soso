@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class User {
     @Id
     @Column(unique=true)
-    private Long tellphone ;
+    private String tellphone ;
     //密码
     private String password;
     //昵称
@@ -30,11 +30,11 @@ public class User {
     //城市
     private String city;
 
-    public Long getTellphone() {
+    public String getTellphone() {
         return tellphone;
     }
 
-    public void setTellphone(Long tellphone) {
+    public void setTellphone(String tellphone) {
         this.tellphone = tellphone;
     }
 

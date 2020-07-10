@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class Driver {
     @Id
     @Column(unique=true)
-    private Long tellphone;
+    private String tellphone;
     //密码
     private String password;
     //身份证号
@@ -62,11 +62,11 @@ public class Driver {
     //城市
     private String city;
 
-    public Long getTellphone() {
+    public String getTellphone() {
         return tellphone;
     }
 
-    public void setTellphone(Long tellphone) {
+    public void setTellphone(String tellphone) {
         this.tellphone = tellphone;
     }
 
