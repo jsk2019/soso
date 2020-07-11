@@ -14,10 +14,12 @@ public class OrderList {
     private String id;
 
     //乘客手机号码
-    @OneToOne
+    @ManyToOne
+    @JoinColumn
     private User user;
     //司机手机号码
-    @OneToOne
+    @ManyToOne
+    @JoinColumn
     private Driver driver;
     //订单创建时间
 
@@ -38,16 +40,16 @@ public class OrderList {
     private String destination_address;
 
     //上车经度
-    private Double origin_longitude;
+    private double origin_longitude;
 
     //上车纬度
-    private Double origin_latitude;
+    private double origin_latitude;
 
     //下车经度
-    private Double des_longitude;
+    private double des_longitude;
 
     //下车纬度
-    private Double des_latitude;
+    private double des_latitude;
 
     //订单状态
     private int status;
@@ -146,35 +148,35 @@ public class OrderList {
         this.destination_address = destination_address;
     }
 
-    public Double getOrigin_longitude() {
+    public double getOrigin_longitude() {
         return origin_longitude;
     }
 
-    public void setOrigin_longitude(Double origin_longitude) {
+    public void setOrigin_longitude(double origin_longitude) {
         this.origin_longitude = origin_longitude;
     }
 
-    public Double getOrigin_latitude() {
+    public double getOrigin_latitude() {
         return origin_latitude;
     }
 
-    public void setOrigin_latitude(Double origin_latitude) {
+    public void setOrigin_latitude(double origin_latitude) {
         this.origin_latitude = origin_latitude;
     }
 
-    public Double getDes_longitude() {
+    public double getDes_longitude() {
         return des_longitude;
     }
 
-    public void setDes_longitude(Double des_longitude) {
+    public void setDes_longitude(double des_longitude) {
         this.des_longitude = des_longitude;
     }
 
-    public Double getDes_latitude() {
+    public double getDes_latitude() {
         return des_latitude;
     }
 
-    public void setDes_latitude(Double des_latitude) {
+    public void setDes_latitude(double des_latitude) {
         this.des_latitude = des_latitude;
     }
 

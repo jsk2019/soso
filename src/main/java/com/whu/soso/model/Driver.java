@@ -1,11 +1,11 @@
 package com.whu.soso.model;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Driver {
@@ -55,11 +55,14 @@ public class Driver {
     //工作状态
     private int status;
     //经度
-    private String longitude;
+    private double longitude;
     //纬度
-    private String latitude;
+    private double latitude;
     //城市
     private String city;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<OrderList> orderLists=new ArrayList<>();
 
 
     public String getTelephone() {
@@ -239,19 +242,19 @@ public class Driver {
         this.status = status;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
@@ -261,5 +264,13 @@ public class Driver {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public List<OrderList> getOrderLists() {
+        return orderLists;
+    }
+
+    public void setOrderLists(List<OrderList> orderLists) {
+        this.orderLists = orderLists;
     }
 }

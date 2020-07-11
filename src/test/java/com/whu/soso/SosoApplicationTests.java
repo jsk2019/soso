@@ -23,18 +23,19 @@ public class SosoApplicationTests {
 
     @Test
     public void contextLoads() {
-     //   System.out.println("ssd");
-       Driver test = new Driver();
-       test.setTelephone("12345678910");
-       test.setStatus(0);
-       driverRepository.save(test);
-       Driver driver = driverRepository.findByTelephone("12345678910");
-       OrderList orderList = new OrderList();
-       orderList.setStatus(0);
-       orderList.setDriver(driver);
-       orderListRepository.save(orderList);
-       Driver driver1= driverRepository.findByTelephone("12345678910");
-       System.out.println(driver1.getStatus());
+
+     //  Driver test = new Driver();
+     //  test.setTelephone("123456843");
+     //  driverRepository.save(test);
+      //Driver driver = driverRepository.findByTelephone("1234567");
+
+     // OrderList orderList = new OrderList();
+     // orderList.setId("awf");
+      orderListRepository.updateDriverTelephone("123456843","awf");
+
+     // orderListRepository.save(orderList);
+      Driver driver1= driverRepository.findByTelephone("123456843");
+      System.out.println(driver1.getStatus());
     }
 
 }

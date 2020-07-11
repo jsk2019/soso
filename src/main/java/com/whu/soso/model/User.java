@@ -1,10 +1,10 @@
 package com.whu.soso.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -24,11 +24,15 @@ public class User {
     //优惠卷3
     private int three_coupon;
     //经度
-    private Double longitude;
+    private double longitude;
     //纬度
-    private Double latitude;
+    private double latitude;
     //城市
     private String city;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<OrderList> orderLists=new ArrayList<>();
+
 
 
     public String getTelephone() {
@@ -89,19 +93,19 @@ public class User {
         this.three_coupon = three_coupon;
     }
 
-    public Double getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Double longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public Double getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Double latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
@@ -111,5 +115,13 @@ public class User {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public List<OrderList> getOrderLists() {
+        return orderLists;
+    }
+
+    public void setOrderLists(List<OrderList> orderLists) {
+        this.orderLists = orderLists;
     }
 }
