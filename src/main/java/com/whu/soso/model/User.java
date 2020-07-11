@@ -1,3 +1,13 @@
+/**
+ * <pre>
+ *     author : 3D2Y.郑建宙、江圣坤
+ *     e-mail : 530578697@qq.com
+ *     date   : 2020/7/09
+ *     description   : 用户实体类
+ *     version: 1.0
+ * </pre>
+ */
+
 package com.whu.soso.model;
 
 import javax.persistence.Column;
@@ -108,5 +118,21 @@ public class User {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "tellphone='" + tellphone + '\'' +
+                ", password='" + password + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", one_coupon=" + one_coupon +
+                ", two_coupon=" + two_coupon +
+                ", three_coupon=" + three_coupon +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
+                ", city='" + city + '\'' +
+                '}';
     }
 }

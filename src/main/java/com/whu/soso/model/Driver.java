@@ -1,3 +1,12 @@
+/**
+ * <pre>
+ *     author : 3D2Y.江圣坤、郑建宙
+ *     e-mail : 530578697@qq.com
+ *     date   : 2020/7/09
+ *     description   : 司机实体类
+ *     version: 1.0
+ * </pre>
+ */
 package com.whu.soso.model;
 
 

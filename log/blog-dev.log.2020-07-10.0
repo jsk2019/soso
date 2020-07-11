@@ -1,0 +1,49 @@
+2020-07-10 14:50:45.319 DEBUG 11164 --- [background-preinit] .h.v.m.ResourceBundleMessageInterpolator : Loaded expression factory via original TCCL
+2020-07-10 14:50:45.382  INFO 11164 --- [main] com.whu.soso.SosoApplication             : Starting SosoApplication on LAPTOP-A96P35KO with PID 11164 (E:\soso\target\classes started by jsk in E:\soso)
+2020-07-10 14:50:45.383  INFO 11164 --- [main] com.whu.soso.SosoApplication             : No active profile set, falling back to default profiles: default
+2020-07-10 14:50:45.821  INFO 11164 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-07-10 14:50:45.856  INFO 11164 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 29ms. Found 2 JPA repository interfaces.
+2020-07-10 14:50:46.252  INFO 11164 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-07-10 14:50:46.257  INFO 11164 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-07-10 14:50:46.258  INFO 11164 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.36]
+2020-07-10 14:50:46.325  INFO 11164 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-07-10 14:50:46.326  INFO 11164 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 914 ms
+2020-07-10 14:50:46.425  INFO 11164 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-07-10 14:50:46.454  INFO 11164 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.17.Final
+2020-07-10 14:50:46.584  INFO 11164 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-07-10 14:50:46.631  INFO 11164 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-07-10 14:50:46.700  INFO 11164 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-07-10 14:50:46.712  INFO 11164 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2020-07-10 14:50:47.139  INFO 11164 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-07-10 14:50:47.143  INFO 11164 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-07-10 14:50:47.233  WARN 11164 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-07-10 14:50:47.378  INFO 11164 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-07-10 14:50:47.792  INFO 11164 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-07-10 14:50:47.793  INFO 11164 --- [main] com.whu.soso.SosoApplication             : Started SosoApplication in 2.724 seconds (JVM running for 3.418)
+2020-07-10 14:51:08.256  INFO 2388 --- [main] com.whu.soso.SosoApplication             : Starting SosoApplication on LAPTOP-A96P35KO with PID 2388 (E:\soso\target\classes started by jsk in E:\soso)
+2020-07-10 14:51:08.259  INFO 2388 --- [main] com.whu.soso.SosoApplication             : No active profile set, falling back to default profiles: default
+2020-07-10 14:51:08.674  INFO 2388 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2020-07-10 14:51:08.710  INFO 2388 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31ms. Found 2 JPA repository interfaces.
+2020-07-10 14:51:09.093  INFO 2388 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-07-10 14:51:09.098  INFO 2388 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-07-10 14:51:09.098  INFO 2388 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.36]
+2020-07-10 14:51:09.159  INFO 2388 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-07-10 14:51:09.159  INFO 2388 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 868 ms
+2020-07-10 14:51:09.256  INFO 2388 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-07-10 14:51:09.288  INFO 2388 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.17.Final
+2020-07-10 14:51:09.435  INFO 2388 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-07-10 14:51:09.490  INFO 2388 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-07-10 14:51:09.562  INFO 2388 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-07-10 14:51:09.573  INFO 2388 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2020-07-10 14:51:10.002  INFO 2388 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-07-10 14:51:10.006  INFO 2388 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-07-10 14:51:10.087  WARN 2388 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-07-10 14:51:10.227  INFO 2388 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-07-10 14:51:10.671  INFO 2388 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-07-10 14:51:10.673  INFO 2388 --- [main] com.whu.soso.SosoApplication             : Started SosoApplication in 2.709 seconds (JVM running for 3.366)
+2020-07-10 14:51:26.436  INFO 2388 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-07-10 14:51:26.437  INFO 2388 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-07-10 14:51:26.442  INFO 2388 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2020-07-10 14:51:26.458  INFO 2388 --- [http-nio-8080-exec-1] com.whu.soso.aspect.LogAspect            : Request:RequestLog{url='http://localhost:8080/', ip='0:0:0:0:0:0:0:1', classMethod='com.whu.soso.HelloController.hello', args=[]}
+2020-07-10 14:51:26.461  INFO 2388 --- [http-nio-8080-exec-1] com.whu.soso.aspect.LogAspect            : Result:hello
+2020-07-10 14:51:26.461  INFO 2388 --- [http-nio-8080-exec-1] com.whu.soso.aspect.LogAspect            : -------AFTER-------

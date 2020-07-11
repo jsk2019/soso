@@ -1,3 +1,13 @@
+/**
+ * <pre>
+ *     author : 3D2Y.郑建宙、江圣坤
+ *     e-mail : 530578697@qq.com
+ *     date   : 2020/7/09
+ *     description   : 聊天记录实体类
+ *     version: 1.0
+ * </pre>
+ */
+
 package com.whu.soso.model;
 
 
