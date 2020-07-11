@@ -19,15 +19,16 @@ import java.util.Date;
 @Entity
 public class OrderList {
     @Id
-    @GeneratedValue(strategy =  GenerationType.AUTO)
-    @Column(length=20)
-    private Long id;
+    @Column(length = 20)
+    private String id;
 
     //乘客手机号码
-    @OneToOne
+    @ManyToOne
+    @JoinColumn
     private User user;
     //司机手机号码
-    @OneToOne
+    @ManyToOne
+    @JoinColumn
     private Driver driver;
     //订单创建时间
 
@@ -39,7 +40,7 @@ public class OrderList {
     private Date Appointment;
 
     //订单类型
-    private Integer order_type;
+    private int order_type;
 
     //上车地点
     private String origin_address;
@@ -48,28 +49,28 @@ public class OrderList {
     private String destination_address;
 
     //上车经度
-    private Double origin_longitude;
+    private double origin_longitude;
 
     //上车纬度
-    private Double origin_latitude;
+    private double origin_latitude;
 
     //下车经度
-    private Double des_longitude;
+    private double des_longitude;
 
     //下车纬度
-    private Double des_latitude;
+    private double des_latitude;
 
     //订单状态
-    private Integer status;
+    private int status;
 
     //订单金额
-    private Integer order_money;
+    private int order_money;
 
     //订单取消原因
     private String cancel_reason;
 
     //已行驶路程
-    private Integer already_driver;
+    private int already_driver;
 
     @Temporal(TemporalType.TIMESTAMP)
     //实际出发时间
@@ -84,19 +85,19 @@ public class OrderList {
 
 
     @PreUpdate
-    public void setStatus(){
+    public void setStatus() {
 
-        if (this.order_type==0&this.driver!=null){
+        if (this.order_type == 0 & this.driver != null) {
             this.driver.setStatus(2);
         }
     }
 
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -132,11 +133,11 @@ public class OrderList {
         Appointment = appointment;
     }
 
-    public Integer getOrder_type() {
+    public int getOrder_type() {
         return order_type;
     }
 
-    public void setOrder_type(Integer order_type) {
+    public void setOrder_type(int order_type) {
         this.order_type = order_type;
     }
 
@@ -156,51 +157,51 @@ public class OrderList {
         this.destination_address = destination_address;
     }
 
-    public Double getOrigin_longitude() {
+    public double getOrigin_longitude() {
         return origin_longitude;
     }
 
-    public void setOrigin_longitude(Double origin_longitude) {
+    public void setOrigin_longitude(double origin_longitude) {
         this.origin_longitude = origin_longitude;
     }
 
-    public Double getOrigin_latitude() {
+    public double getOrigin_latitude() {
         return origin_latitude;
     }
 
-    public void setOrigin_latitude(Double origin_latitude) {
+    public void setOrigin_latitude(double origin_latitude) {
         this.origin_latitude = origin_latitude;
     }
 
-    public Double getDes_longitude() {
+    public double getDes_longitude() {
         return des_longitude;
     }
 
-    public void setDes_longitude(Double des_longitude) {
+    public void setDes_longitude(double des_longitude) {
         this.des_longitude = des_longitude;
     }
 
-    public Double getDes_latitude() {
+    public double getDes_latitude() {
         return des_latitude;
     }
 
-    public void setDes_latitude(Double des_latitude) {
+    public void setDes_latitude(double des_latitude) {
         this.des_latitude = des_latitude;
     }
 
-    public Integer getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
-    public Integer getOrder_money() {
+    public int getOrder_money() {
         return order_money;
     }
 
-    public void setOrder_money(Integer order_money) {
+    public void setOrder_money(int order_money) {
         this.order_money = order_money;
     }
 
@@ -212,11 +213,11 @@ public class OrderList {
         this.cancel_reason = cancel_reason;
     }
 
-    public Integer getAlready_driver() {
+    public int getAlready_driver() {
         return already_driver;
     }
 
-    public void setAlready_driver(Integer already_driver) {
+    public void setAlready_driver(int already_driver) {
         this.already_driver = already_driver;
     }
 

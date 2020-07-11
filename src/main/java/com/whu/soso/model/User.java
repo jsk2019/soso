@@ -10,17 +10,17 @@
 
 package com.whu.soso.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class User {
     @Id
-    @Column(unique=true)
-    private String tellphone ;
+    @Column(unique = true)
+    private String telephone;
     //密码
     private String password;
     //昵称
@@ -28,24 +28,27 @@ public class User {
     //头像
     private String avatar;
     //优惠卷1
-    private Integer one_coupon;
+    private int one_coupon;
     //优惠卷2
-    private Integer two_coupon;
+    private int two_coupon;
     //优惠卷3
-    private Integer three_coupon;
+    private int three_coupon;
     //经度
-    private Double longitude;
+    private double longitude;
     //纬度
-    private Double latitude;
+    private double latitude;
     //城市
     private String city;
 
-    public String getTellphone() {
-        return tellphone;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<OrderList> orderLists=new ArrayList<>();
+
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setTellphone(String tellphone) {
-        this.tellphone = tellphone;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
     public String getPassword() {
@@ -72,43 +75,43 @@ public class User {
         this.avatar = avatar;
     }
 
-    public Integer getOne_coupon() {
+    public int getOne_coupon() {
         return one_coupon;
     }
 
-    public void setOne_coupon(Integer one_coupon) {
+    public void setOne_coupon(int one_coupon) {
         this.one_coupon = one_coupon;
     }
 
-    public Integer getTwo_coupon() {
+    public int getTwo_coupon() {
         return two_coupon;
     }
 
-    public void setTwo_coupon(Integer two_coupon) {
+    public void setTwo_coupon(int two_coupon) {
         this.two_coupon = two_coupon;
     }
 
-    public Integer getThree_coupon() {
+    public int getThree_coupon() {
         return three_coupon;
     }
 
-    public void setThree_coupon(Integer three_coupon) {
+    public void setThree_coupon(int three_coupon) {
         this.three_coupon = three_coupon;
     }
 
-    public Double getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Double longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public Double getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Double latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
@@ -120,19 +123,11 @@ public class User {
         this.city = city;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "tellphone='" + tellphone + '\'' +
-                ", password='" + password + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", one_coupon=" + one_coupon +
-                ", two_coupon=" + two_coupon +
-                ", three_coupon=" + three_coupon +
-                ", longitude=" + longitude +
-                ", latitude=" + latitude +
-                ", city='" + city + '\'' +
-                '}';
+    public List<OrderList> getOrderLists() {
+        return orderLists;
+    }
+
+    public void setOrderLists(List<OrderList> orderLists) {
+        this.orderLists = orderLists;
     }
 }

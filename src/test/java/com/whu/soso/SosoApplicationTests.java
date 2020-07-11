@@ -25,7 +25,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
- public class SosoApplicationTests {
+public class SosoApplicationTests {
 
     @Autowired
     private DriverRepository driverRepository;
@@ -33,12 +33,22 @@ import java.util.List;
     private OrderListRepository orderListRepository;
     @Autowired
     private UserRepository userRepository;
+
     @Test
     public void contextLoads() {
-        Driver test = new Driver();
-        test.setTellphone("1234567");
-        test.setStatus(0);
-        driverRepository.save(test);
+
+     //  Driver test = new Driver();
+     //  test.setTelephone("123456843");
+     //  driverRepository.save(test);
+      //Driver driver = driverRepository.findByTelephone("1234567");
+
+     // OrderList orderList = new OrderList();
+     // orderList.setId("awf");
+      orderListRepository.updateDriverTelephone("123456843","awf");
+
+     // orderListRepository.save(orderList);
+      Driver driver1= driverRepository.findByTelephone("123456843");
+      System.out.println(driver1.getStatus());
     }
 
 

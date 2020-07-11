@@ -27,7 +27,7 @@ public class LoginController {
 //        JSONObject jsonObject = JSONObject.parseObject(userString);
 //        User user = JSONObject.toJavaObject(jsonObject,User.class);
 //        System.out.println(user.toString());
-        User user1 = userRepository.findByTellphone(user.getTellphone());
+        User user1 = userRepository.findByTelephone(user.getTelephone());
         if (user1==null) {
             userRepository.save(user);
             return 1;
@@ -40,7 +40,7 @@ public class LoginController {
 
     @PostMapping(value = "/login")
     public Integer Login(@RequestParam String tellphone,@RequestParam String password){
-        User user = userRepository.findByTellphone(tellphone);
+        User user = userRepository.findByTelephone(tellphone);
         if (password.equals(user.getPassword())){
             return 1;
         }

@@ -16,12 +16,13 @@ public class HelloController {
     }
 
     @PostMapping(value="/Test",produces = "application/json;charset=UTF-8")
-    public User Registered(@RequestParam(required = false) String userString){
+    public User Registered(@RequestParam(required = false) String userString) {
         JSONObject jsonObject = JSONObject.parseObject(userString);
-        User user = JSONObject.toJavaObject(jsonObject,User.class);
+        User user = JSONObject.toJavaObject(jsonObject, User.class);
         System.out.println(user.toString());
         return user;
     }
+
 
 
 }

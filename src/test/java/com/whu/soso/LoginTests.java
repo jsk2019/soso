@@ -41,10 +41,10 @@ public class LoginTests {
     @Rollback(true)
     public void LoginTest(){
         User user = new User();
-        user.setTellphone("123");
+        user.setTelephone("123");
         user.setPassword("jsk");
         userRepository.save(user);
-        User user1 = userRepository.findByTellphone("123");
+        User user1 = userRepository.findByTelephone("123");
         Assert.assertEquals(user.getPassword(),user1.getPassword());
     }
 
@@ -63,7 +63,7 @@ public class LoginTests {
     @Rollback(true)
     public void RegisteredTest(){
         String userString = "{\n" +
-                "  \"tellphone\": \"123456789\",\n" +
+                "  \"telephone\": \"123456789\",\n" +
                 "  \"password\": \"123456\",\n" +
                 "  \"nickname\": null,\n" +
                 "  \"avatar\": null,\n" +
@@ -76,9 +76,9 @@ public class LoginTests {
                 "}";
         JSONObject jsonObject = JSONObject.parseObject(userString);
         User user = JSONObject.toJavaObject(jsonObject,User.class);
-        user.setTellphone("123");
+        user.setTelephone("123");
         userRepository.save(user);
-        User user1 = userRepository.findByTellphone("123");
+        User user1 = userRepository.findByTelephone("123");
         Assert.assertNotNull(user1);
 
     }
