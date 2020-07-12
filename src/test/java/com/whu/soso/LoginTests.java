@@ -30,8 +30,8 @@ public class LoginTests {
      * 时间：2020/7/11 23:10
      * 缺陷描述摘要：缺陷所在模块：LoginController.java
      *            缺陷所在函数：LoginInPassword
-     *            缺陷说明：无法成功根据用户手机号返回user对象
-     * 单元测试用例编号：101
+     *            缺陷说明：无法成功根据用户手机号返回user对象,有时会出现500错误代码
+    * 单元测试用例编号：101
      * 程序员：江圣坤
      * 核准时间：23:30
      * 状态：完成
@@ -45,7 +45,14 @@ public class LoginTests {
         user.setPassword("jsk");
         userRepository.save(user);
         User user1 = userRepository.findByTelephone("123");
-        Assert.assertEquals(user.getPassword(),user1.getPassword());
+        try {
+            User user2 = userRepository.findByTelephone("1611218121");
+            user2.getPassword();
+        }catch (NullPointerException e){
+            System.out.println(e);
+        }finally {
+            Assert.assertEquals(user.getPassword(),user1.getPassword());
+        }
     }
 
     /**

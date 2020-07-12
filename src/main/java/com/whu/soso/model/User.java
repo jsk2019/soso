@@ -21,6 +21,7 @@ public class User {
     @Id
     @Column(unique = true)
     private String telephone;
+
     //密码
     private String password;
     //昵称

@@ -11,6 +11,7 @@
 package com.whu.soso.Controller;
 
 import com.whu.soso.Repository.UserRepository;
+import com.whu.soso.model.ReturnMessage;
 import com.whu.soso.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,28 +23,32 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
     @Autowired
     UserRepository userRepository;
-    @PostMapping(value="/registered")
-    public Integer Registered(@RequestBody User user){
+
+    @PostMapping(value = "/registered")
+    public ReturnMessage Registered(@RequestBody User user) {
 //        JSONObject jsonObject = JSONObject.parseObject(userString);
 //        User user = JSONObject.toJavaObject(jsonObject,User.class);
 //        System.out.println(user.toString());
         User user1 = userRepository.findByTelephone(user.getTelephone());
-        if (user1==null) {
+        if (user1 == null) {
             userRepository.save(user);
-            return 1;
-        }
-        else {
-            return 0;
+            return new ReturnMessage(1);
+        } else {
+            return new ReturnMessage(0);
         }
     }
 
 
     @PostMapping(value = "/login")
-    public Integer Login(@RequestParam String tellphone,@RequestParam String password){
-        User user = userRepository.findByTelephone(tellphone);
-        if (password.equals(user.getPassword())){
-            return 1;
+    public ReturnMessage Login(@RequestParam String telephone, @RequestParam String password) {
+        try {
+            User user = userRepository.findByTelephone(telephone);
+            if (password.equals(user.getPassword())) {
+                return new ReturnMessage(1);
+            }
+            return new ReturnMessage(0);
+        } catch (NullPointerException e) {
+            return new ReturnMessage(0);
         }
-        else return 0;
     }
 }
