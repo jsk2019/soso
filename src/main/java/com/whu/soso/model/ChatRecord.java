@@ -16,6 +16,7 @@ import java.util.Date;
 
 @Entity
 public class ChatRecord {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(unique = true)

@@ -24,6 +24,12 @@ public class LoginController {
     @Autowired
     UserRepository userRepository;
 
+    /**
+     *
+     * @param user 用户实体类
+     * @return  1：注册成功
+     *          2：注册失败，手机号已被注册
+     */
     @PostMapping(value = "/registered")
     public ReturnMessage Registered(@RequestBody User user) {
 //        JSONObject jsonObject = JSONObject.parseObject(userString);
@@ -38,9 +44,15 @@ public class LoginController {
         }
     }
 
-
+    /**
+     *
+     * @param telephone 手机号
+     * @param password  密码
+     * @return  1：登陆成功
+     *          2：用户名或密码错误
+     */
     @PostMapping(value = "/login")
-    public ReturnMessage Login(@RequestParam String telephone, @RequestParam String password) {
+    public ReturnMessage LoginInPassword(@RequestParam String telephone, @RequestParam String password) {
         try {
             User user = userRepository.findByTelephone(telephone);
             if (password.equals(user.getPassword())) {

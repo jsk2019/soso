@@ -1,3 +1,13 @@
+/**
+ * <pre>
+ *     author : 3D2Y.郑建宙、江圣坤
+ *     e-mail : 530578697@qq.com
+ *     date   : 2020/7/09
+ *     description   : 用户服务层
+ *     version: 1.0
+ * </pre>
+ */
+
 package com.whu.soso.Repository;
 
 import com.whu.soso.model.User;
