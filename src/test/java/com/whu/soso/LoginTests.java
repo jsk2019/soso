@@ -11,8 +11,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
 
@@ -27,6 +29,7 @@ public class LoginTests {
     private UserRepository userRepository;
 
     /**
+     * 单元测试
      * 时间：2020/7/11 23:10
      * 缺陷描述摘要：缺陷所在模块：LoginController.java
      *            缺陷所在函数：LoginInPassword
@@ -56,6 +59,7 @@ public class LoginTests {
     }
 
     /**
+     * 单元测试
      * 时间：2020/7/11 23:30
      * 缺陷描述摘要：缺陷所在模块：LoginController.java
      *            缺陷所在函数：Registered
@@ -89,4 +93,11 @@ public class LoginTests {
         Assert.assertNotNull(user1);
 
     }
+
+    /**集成测试
+     * 登陆接口测试(/login)
+     * 缺陷描述摘要：缺陷所在模块：LoginController.java
+     *            缺陷说明：测试登陆
+     */
+
 }

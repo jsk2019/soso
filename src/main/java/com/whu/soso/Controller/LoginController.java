@@ -27,26 +27,37 @@ public class LoginController {
     @Autowired
     UserRepository userRepository;
 
-    @PostMapping(value = "/registered" )
-    @ResponseBody
-
+    /**
+     *
+     * @param user 用户实体类
+     * @return  1：注册成功
+     *          2：注册失败，手机号已被注册
+     */
+    @PostMapping(value = "/registered")
     public JSONObject Registered(@RequestBody User user) {
         //用一个map保存responseBody 将来转成json
-        Map<String,Object> params=new HashMap<>();
-        //如果用户不存在
-        if (!userRepository.existsById(user.getTelephone())) {
-            userRepository.save(user);
-            //Status：1 注册成功  0注册失败
-            params.put("status",1);
-        } else {
-           params.put("status",0);
-        }
-        return new JSONObject(params);
+                Map<String,Object> params=new HashMap<>();
+                //如果用户不存在
+                if (!userRepository.existsById(user.getTelephone())) {
+
+                        userRepository.save(user);
+                        //Status：1 注册成功  0注册失败
+                        params.put("status",1);
+                 } else {
+                         params.put("status",0);
+                }
+                return new JSONObject(params);
     }
 
-
+    /**
+     *
+     * @param telephone 手机号
+     * @param password  密码
+     * @return  1：登陆成功
+     *          2：用户名或密码错误
+     */
     @PostMapping(value = "/login")
-    public ReturnMessage Login(@RequestParam String telephone, @RequestParam String password) {
+    public ReturnMessage LoginInPassword(@RequestParam String telephone, @RequestParam String password) {
         try {
             User user = userRepository.findByTelephone(telephone);
             if (password.equals(user.getPassword())) {

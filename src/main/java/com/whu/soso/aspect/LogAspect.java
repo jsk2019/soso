@@ -1,3 +1,13 @@
+/**
+ * <pre>
+ *     author : 3D2Y.江圣坤
+ *     e-mail : 530578697@qq.com
+ *     date   : 2020/7//11
+ *     description   : 日志处理
+ *     version: 1.0
+ * </pre>
+ */
+
 package com.whu.soso.aspect;
 
 import org.aspectj.lang.JoinPoint;
