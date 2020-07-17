@@ -37,7 +37,7 @@ public class OrderList {
     //预约出发时间
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date Appointment;
+    private Date appointment;
 
     //订单类型
     private int order_type;
@@ -126,11 +126,11 @@ public class OrderList {
     }
 
     public Date getAppointment() {
-        return Appointment;
+        return appointment;
     }
 
     public void setAppointment(Date appointment) {
-        Appointment = appointment;
+        appointment = appointment;
     }
 
     public int getOrder_type() {

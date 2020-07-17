@@ -10,32 +10,38 @@
 
 package com.whu.soso.Controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.JSONObjectCodec;
 import com.whu.soso.Repository.UserRepository;
 import com.whu.soso.model.ReturnMessage;
 import com.whu.soso.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class LoginController {
     @Autowired
     UserRepository userRepository;
 
-    @PostMapping(value = "/registered")
-    public ReturnMessage Registered(@RequestBody User user) {
-//        JSONObject jsonObject = JSONObject.parseObject(userString);
-//        User user = JSONObject.toJavaObject(jsonObject,User.class);
-//        System.out.println(user.toString());
-        User user1 = userRepository.findByTelephone(user.getTelephone());
-        if (user1 == null) {
+    @PostMapping(value = "/registered" )
+    @ResponseBody
+
+    public JSONObject Registered(@RequestBody User user) {
+        //用一个map保存responseBody 将来转成json
+        Map<String,Object> params=new HashMap<>();
+        //如果用户不存在
+        if (!userRepository.existsById(user.getTelephone())) {
             userRepository.save(user);
-            return new ReturnMessage(1);
+            //Status：1 注册成功  0注册失败
+            params.put("status",1);
         } else {
-            return new ReturnMessage(0);
+           params.put("status",0);
         }
+        return new JSONObject(params);
     }
 
 
@@ -51,4 +57,6 @@ public class LoginController {
             return new ReturnMessage(0);
         }
     }
+
+
 }
