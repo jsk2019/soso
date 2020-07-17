@@ -14,13 +14,10 @@ import com.whu.soso.Repository.UserRepository;
 import com.whu.soso.model.ReturnMessage;
 import com.whu.soso.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class LoginController {
+public class UserController {
     @Autowired
     UserRepository userRepository;
 
@@ -63,4 +60,11 @@ public class LoginController {
             return new ReturnMessage(0);
         }
     }
+
+    @PostMapping(value = "/upload")
+    public Object upLoadFile(@RequestParam String s) {
+
+        return s;
+    }
+
 }

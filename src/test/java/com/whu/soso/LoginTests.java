@@ -28,13 +28,15 @@ public class LoginTests {
     @Autowired
     private UserRepository userRepository;
 
+
+
     /**
      * 单元测试
      * 时间：2020/7/11 23:10
      * 缺陷描述摘要：缺陷所在模块：LoginController.java
      *            缺陷所在函数：LoginInPassword
      *            缺陷说明：无法成功根据用户手机号返回user对象,有时会出现500错误代码
-    * 单元测试用例编号：101
+    * 单元测试用例编号：103
      * 程序员：江圣坤
      * 核准时间：23:30
      * 状态：完成
@@ -64,7 +66,7 @@ public class LoginTests {
      * 缺陷描述摘要：缺陷所在模块：LoginController.java
      *            缺陷所在函数：Registered
      *            缺陷说明：无法将解析json数据格式并转化为User对象
-     * 单元测试用例编号：102
+     * 单元测试用例编号：104
      * 程序员：江圣坤
      * 核准时间：23:50
      * 状态：完成
