@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController
-public class LoginController {
+public class UserController {
     @Autowired
     UserRepository userRepository;
 
@@ -67,6 +69,14 @@ public class LoginController {
         } catch (NullPointerException e) {
             return new ReturnMessage(0);
         }
+    }
+
+
+
+    @PostMapping(value = "/upload")
+    public Object upLoadFile(@RequestParam String s) {
+
+        return s;
     }
 
 
