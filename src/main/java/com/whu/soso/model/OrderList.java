@@ -4,7 +4,7 @@
  *     e-mail : 530578697@qq.com
  *     date   : 2020/7/09
  *     description   : 订单实体类
- *     version: 1.0
+ *     version: 2.0
  * </pre>
  */
 package com.whu.soso.model;
@@ -12,6 +12,7 @@ package com.whu.soso.model;
 
 import com.whu.soso.Repository.DriverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -32,7 +33,8 @@ public class OrderList {
     private Driver driver;
     //订单创建时间
 
-    @Temporal(TemporalType.TIMESTAMP)
+
+    //@Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
     //预约出发时间
 
@@ -40,7 +42,7 @@ public class OrderList {
     private Date appointment;
 
     //订单类型
-    private int order_type;
+    private Integer order_type;
 
     //上车地点
     private String origin_address;
@@ -71,6 +73,7 @@ public class OrderList {
 
     //已行驶路程
     private int already_driver;
+
 
     @Temporal(TemporalType.TIMESTAMP)
     //实际出发时间
@@ -133,7 +136,7 @@ public class OrderList {
         appointment = appointment;
     }
 
-    public int getOrder_type() {
+    public Integer getOrder_type() {
         return order_type;
     }
 

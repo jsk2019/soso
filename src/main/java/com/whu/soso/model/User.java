@@ -4,7 +4,7 @@
  *     e-mail : 530578697@qq.com
  *     date   : 2020/7/09
  *     description   : 用户实体类
- *     version: 1.0
+ *     version: 2.0
  * </pre>
  */
 

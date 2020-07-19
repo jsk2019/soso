@@ -1,3 +1,12 @@
+/**
+ * <pre>
+ *     author : 3D2Y.郭香俊
+ *     e-mail : 530578697@qq.com
+ *     date   : 2020/7//15
+ *     description   : 第三方接口调用
+ *     version: 2.0
+ * </pre>
+ */
 package com.whu.soso.Service;
 
 import com.alibaba.fastjson.JSON;
@@ -33,7 +42,7 @@ public class APIService {
     public Long GetDistance(String driverLon,String driverLat,String userLon,String userLat){
         //用JAVA发起http请求，并返回json格式的结果
         String serverUrl = "https://restapi.amap.com/v3/distance?origins="+driverLon+","+driverLat+"&destination="+userLon+","+userLat+"&key="+KEY;
-       // System.out.println(serverUrl);
+        System.out.println(serverUrl);
         StringBuffer result = new StringBuffer();
         try {
             URL url = new URL(serverUrl);
@@ -56,7 +65,7 @@ public class APIService {
         JSONArray results = jsonObject.getJSONArray("results");
         JSONObject jsonObject1 = results.getJSONObject(0);
         String distanceString = jsonObject1.getString("distance");
-        System.out.println(distanceString);
+      //  System.out.println(distanceString);
         Long distance = Long.parseLong(distanceString);
         return distance;
     }

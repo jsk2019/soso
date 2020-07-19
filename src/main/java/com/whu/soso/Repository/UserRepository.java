@@ -4,7 +4,7 @@
  *     e-mail : 530578697@qq.com
  *     date   : 2020/7/09
  *     description   : 用户服务层
- *     version: 1.0
+ *     version: 2.0
  * </pre>
  */
 
@@ -15,5 +15,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User,String> {
     User findByTelephone(String telephone);
-    User findAllByTelephone(String telephone);
 }

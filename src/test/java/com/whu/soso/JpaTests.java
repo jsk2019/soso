@@ -7,6 +7,7 @@ import com.whu.soso.Repository.DriverRepository;
 import com.whu.soso.Repository.OrderListRepository;
 import com.whu.soso.Repository.UserRepository;
 import com.whu.soso.Service.APIService;
+import com.whu.soso.Service.OrderListService;
 import com.whu.soso.model.Driver;
 import com.whu.soso.model.User;
 import org.junit.Assert;
@@ -18,8 +19,10 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -31,6 +34,7 @@ public class JpaTests {
     @Autowired
     private UserRepository userRepository;
 
+    OrderListService orderListService = new OrderListService();
 
     /**
      * 单元测试
@@ -62,7 +66,7 @@ public class JpaTests {
      *            缺陷所在函数：findByTelephone
      *            缺陷说明：测试driver的jpa操作是否可用
      * 单元测试用例编号：102
-     * 程序员：江圣坤
+     * 程序员：郭香俊
      * 核准时间：16:00
      * 状态：完成
      */
@@ -79,28 +83,54 @@ public class JpaTests {
     }
 
 
-    @Test
-    public void jsontest(){
-        String myJsonObj2 = "{\n" +
-                "    \"name\":\"网站\",\n" +
-                "    \"num\":3,\n" +
-                "    \"sites\": [\n" +
-                "        { \"name\":\"Google\", \"info\":[ \"Android\", \"Google 搜索\", \"Google 翻译\" ] },\n" +
-                "        { \"name\":\"Runoob\", \"info\":[ \"菜鸟教程\", \"菜鸟工具\", \"菜鸟微信\" ] },\n" +
-                "        { \"name\":\"Taobao\", \"info\":[ \"淘宝\", \"网购\" ] }\n" +
-                "    ]\n" +
-                "}";
-        JSONObject jsonobj2 = JSON.parseObject(myJsonObj2); //将json字符串转换成jsonObject对象
-        JSONArray jsonArray = jsonobj2.getJSONArray("sites");
-        System.out.println(jsonArray.getJSONObject(1));
-    }
 
 
+    /**
+     * 单元测试
+     * 时间：2020/7/18 19:30
+     * 缺陷描述摘要：缺陷所在模块：OrderListController.java
+     *            缺陷所在函数：CreateOrder
+     *            缺陷说明：日期格式转化存入数据库问题
+     * 单元测试用例编号：206
+     * 程序员：郑建宙
+     * 核准时间：20:00
+     * 状态：完成
+     */
     @Test
-    public  void apitest2(){
+    public  void apitest2() throws ParseException {
         APIService apiService = new APIService();
         apiService.GetDistance("116.481028","39.989643","114.465302","40.004717");
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
         System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
+        SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        String  s = "2000-01-02 16:30:12";
+        String s1 = "Tue Mar 26 10:26:08 CST 2019";
+
+     //   System.out.println(orderListService.zoneToLocalTime(s1));
+        Date date = df1.parse(s);
+        System.out.println(s);
+
     }
+
+    /**
+     * 单元测试
+     * 时间：2020/7/18 19:30
+     * 缺陷描述摘要：缺陷所在模块：OrderListController.java
+     *            缺陷所在函数：CreateOrder
+     *            缺陷说明：从数据库读取日期格式转化问题
+     * 单元测试用例编号：207
+     * 程序员：郭香俊
+     * 核准时间：20:00
+     * 状态：完成
+     */
+    @Test
+    public  void DataTest() throws ParseException {
+        String str = "Wed Apr 22 14:35:58 CST 2020";
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+        Date date = (Date) sdf.parse(str);
+        String formatStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+        System.out.println(formatStr);
+    }
+
+
 }

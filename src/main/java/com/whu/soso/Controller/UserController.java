@@ -2,9 +2,9 @@
  * <pre>
  *     author : 3D2Y.江圣坤
  *     e-mail : 530578697@qq.com
- *     date   : 2020/7//11
- *     description   : 用于用户的登录和注册
- *     version: 1.0
+ *     date   : 2020/7//16
+ *     description   : 用于用户操作的接口
+ *     version: 2.0
  * </pre>
  */
 
@@ -36,6 +36,7 @@ public class UserController {
      *          2：注册失败，手机号已被注册
      */
     @PostMapping(value = "/registered")
+
     public JSONObject Registered(@RequestBody User user) {
         //用一个map保存responseBody 将来转成json
                 Map<String,Object> params=new HashMap<>();
@@ -50,6 +51,8 @@ public class UserController {
                 }
                 return new JSONObject(params);
     }
+
+
 
     /**
      *
