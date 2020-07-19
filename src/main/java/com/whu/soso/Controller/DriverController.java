@@ -1,10 +1,26 @@
+/**
+ * <pre>
+ *     author : 3D2Y.江圣坤，郭香俊
+ *     e-mail : 530578697@qq.com
+ *     date   : 2020/7//16
+ *     description   : 司机端接口
+ *     version: 2.0
+ * </pre>
+ */
+
 package com.whu.soso.Controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.whu.soso.Repository.DriverRepository;
 import com.whu.soso.model.Driver;
 import com.whu.soso.model.ReturnMessage;
+import com.whu.soso.model.User;
+import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/driver")
@@ -18,12 +34,26 @@ public class DriverController {
      * @return
      */
     @PostMapping(value = "/")
-    public ReturnMessage Registered(@RequestBody Driver driver) {
+    public ReturnMessage RegisteredDirver(@RequestBody Driver driver) {
         Driver driver1 = driverRepository.findByTelephone(driver.getTelephone());
         if (driver1 == null) {
+            driver.setStatus(2);
             driverRepository.save(driver);
             return new ReturnMessage(1);
         } else {
+            return new ReturnMessage(0);
+        }
+    }
+
+    @PostMapping(value = "/login")
+    public ReturnMessage LoginInPassword(@RequestParam String telephone, @RequestParam String password) {
+        try {
+            Driver user = driverRepository.findByTelephone(telephone);
+            if (password.equals(user.getPassword())) {
+                return new ReturnMessage(1);
+            }
+            return new ReturnMessage(0);
+        } catch (NullPointerException e) {
             return new ReturnMessage(0);
         }
     }
@@ -35,9 +65,55 @@ public class DriverController {
      * @param latitude
      * @return
      */
-    @GetMapping("/position")
+    @PostMapping("/position")
     public ReturnMessage UpdatePosition(@RequestParam String telephone,@RequestParam Double longitude,@RequestParam Double latitude){
-        driverRepository.updateDriverPosition(longitude,latitude,telephone);
-        return null;
+        try {
+            if (driverRepository.existsById(telephone)) {
+                driverRepository.updateDriverPosition(longitude, latitude, telephone);
+                return new ReturnMessage(1);
+            }
+            else return new ReturnMessage(0);
+
+        }catch (Exception e){
+            return new ReturnMessage(0);
+        }
+    }
+
+    /**
+     * 更新司机状态
+     * @param telephone 电话号码
+     * @param status    状态
+     * @return
+     */
+    @PostMapping(value = "/updateStatus")
+    public ReturnMessage UpdateDriverStatus(@RequestParam String telephone, @RequestParam Integer status){
+        try {
+            if (driverRepository.existsById(telephone)) {
+                driverRepository.UpdateDriverStatus(status, telephone);
+                return new ReturnMessage(1);
+            }
+            else return new ReturnMessage(0);
+        }catch (Exception e){
+            return new ReturnMessage(0);
+        }
+    }
+
+    /**
+     * 获取司机经纬度
+     * @param telephone
+     * @return
+     */
+    @GetMapping(value = "/driverPosition")
+    public JSONObject GetDriverPosition(@RequestParam String telephone){
+        Map<String,Object> params = new HashMap<>();
+        if (driverRepository.existsById(telephone)){
+            Driver driver = driverRepository.findByTelephone(telephone);
+            params.put("longitude",driver.getLongitude());
+            params.put("latitude",driver.getLatitude());
+        }
+        else{
+            params.put("error","0");
+        }
+        return new JSONObject(params);
     }
 }

@@ -2,15 +2,16 @@
  * <pre>
  *     author : 3D2Y.郑建宙、江圣坤
  *     e-mail : 530578697@qq.com
- *     date   : 2020/7/09
+ *     date   : 2020/7/19
  *     description   : 司机服务层
- *     version: 1.0
+ *     version: 2.0
  * </pre>
  */
 
 package com.whu.soso.Repository;
 
 import com.whu.soso.model.Driver;
+import jdk.net.SocketFlow;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -34,4 +35,12 @@ public interface DriverRepository extends JpaRepository<Driver, String> {
     void updateDriverPosition(Double longitude,Double latitude,String telephone);
 
     List<Driver> findAllByCityAndStatus(String city,Integer status);
+
+
+    @Modifying
+    @Transactional
+    @Query(value = "update driver set status=?1 where telephone=?2",nativeQuery = true)
+    void UpdateDriverStatus(Integer status,String telephone);
+
+    Driver existsByTelephone(String telephone);
 }

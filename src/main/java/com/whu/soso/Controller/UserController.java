@@ -2,9 +2,9 @@
  * <pre>
  *     author : 3D2Y.江圣坤
  *     e-mail : 530578697@qq.com
- *     date   : 2020/7//11
- *     description   : 用于用户的登录和注册
- *     version: 1.0
+ *     date   : 2020/7//16
+ *     description   : 用于用户操作的接口
+ *     version: 2.0
  * </pre>
  */
 
@@ -29,9 +29,6 @@ public class UserController {
      */
     @PostMapping(value = "/registered")
     public ReturnMessage Registered(@RequestBody User user) {
-//        JSONObject jsonObject = JSONObject.parseObject(userString);
-//        User user = JSONObject.toJavaObject(jsonObject,User.class);
-//        System.out.println(user.toString());
         User user1 = userRepository.findByTelephone(user.getTelephone());
         if (user1 == null) {
             userRepository.save(user);
@@ -60,6 +57,7 @@ public class UserController {
             return new ReturnMessage(0);
         }
     }
+
 
     @PostMapping(value = "/upload")
     public Object upLoadFile(@RequestParam String s) {

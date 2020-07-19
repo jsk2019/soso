@@ -14,7 +14,7 @@ public class HelloController {
 
     @GetMapping("/")
     public Object hello(){
-        return new OrderList();
+        return new User();
     }
 
     @PostMapping(value="/Test",produces = "application/json;charset=UTF-8")

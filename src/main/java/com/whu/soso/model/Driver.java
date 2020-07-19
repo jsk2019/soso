@@ -4,7 +4,7 @@
  *     e-mail : 530578697@qq.com
  *     date   : 2020/7/09
  *     description   : 司机实体类
- *     version: 1.0
+ *     version: 2.0
  * </pre>
  */
 package com.whu.soso.model;
