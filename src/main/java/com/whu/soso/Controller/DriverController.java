@@ -12,19 +12,26 @@ package com.whu.soso.Controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.whu.soso.Repository.DriverRepository;
+import com.whu.soso.Service.FaceMatchService;
 import com.whu.soso.model.Driver;
 import com.whu.soso.model.ReturnMessage;
 import com.whu.soso.model.User;
 import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/driver")
 public class DriverController {
+
+   // E:\soso\src\main\java\com\whu\soso\Controller\DriverController.java
+
     @Autowired
     DriverRepository driverRepository;
 
@@ -115,5 +122,41 @@ public class DriverController {
             params.put("error","0");
         }
         return new JSONObject(params);
+    }
+
+    @PostMapping(value="/faceLogin")
+    public Object getFaceDB(@RequestBody MultipartFile upload,@RequestParam String telephone ) throws Exception{
+        //String filePath = new File("").getAbsolutePath();
+        //System.out.println(filePath);
+       // String imgPath1="E:\\soso\\src\\main\\resources\\timg.jpg";
+        try {
+            String imgPath2="src\\main\\resources\\"+telephone+".jpg";
+            String result = FaceMatchService.match(upload, imgPath2);
+            System.out.println(result);
+            return result;
+        }catch (NullPointerException e){
+            return "null";
+        }
+    }
+
+
+    @PostMapping(value = "/uploadPic")
+    public Object upLoadFile(@RequestBody MultipartFile upload,@RequestParam String telephone) {
+        String filePath = "E:\\soso\\src\\main\\resources\\static";
+        File file = new File(filePath);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        String newFileName = telephone+".jpg";
+        String newFilePath = filePath + newFileName;
+        try {
+            upload.transferTo(new File(newFilePath));
+            return newFileName;
+        } catch (IllegalStateException e) {
+            return e;
+        } catch (IOException e1) {
+            return e1;
+        }
+
     }
 }
