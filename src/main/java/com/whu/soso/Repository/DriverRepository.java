@@ -43,4 +43,6 @@ public interface DriverRepository extends JpaRepository<Driver, String> {
     void UpdateDriverStatus(Integer status,String telephone);
 
     Driver existsByTelephone(String telephone);
+
+
 }
