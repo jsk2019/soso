@@ -44,7 +44,7 @@ public class DriverController {
     public ReturnMessage RegisteredDirver(@RequestBody Driver driver) {
         Driver driver1 = driverRepository.findByTelephone(driver.getTelephone());
         if (driver1 == null) {
-            driver.setStatus(2);
+            driver.setStatus(0);
             driverRepository.save(driver);
             return new ReturnMessage(1);
         } else {
@@ -140,6 +140,12 @@ public class DriverController {
     }
 
 
+    /**
+     * 上传司机照片
+     * @param upload
+     * @param telephone
+     * @return
+     */
     @PostMapping(value = "/uploadPic")
     public Object upLoadFile(@RequestBody MultipartFile upload,@RequestParam String telephone) {
         String filePath = "E:\\soso\\src\\main\\resources\\static";
@@ -158,5 +164,47 @@ public class DriverController {
             return e1;
         }
 
+    }
+
+    @PostMapping(value = "/password")
+    public Object UpdatePassword(@RequestParam String telephone,@RequestParam String oldPassword,@RequestParam String newPassword){
+       try {
+           Driver driver = driverRepository.findByTelephone(telephone);
+           if (driver.getPassword()==oldPassword){
+               driverRepository.UpdateDriverPassword(newPassword,telephone);
+           }
+       }catch (NullPointerException e)
+       {
+           return "null";
+       }
+       return "success";
+    }
+
+    @PostMapping(value = "/telephone")
+    public Object UpdateTelephone(@RequestParam String oldTelephone,String newTelephone){
+        try {
+            Driver driver = driverRepository.findByTelephone(oldTelephone);
+            driverRepository.UpdateDriverTel(newTelephone,oldTelephone);
+        }catch (NullPointerException e)
+        {
+            return "null";
+        }
+        return "success";
+    }
+
+    @PostMapping(value = "/car")
+    public Object UpdateCarinfo(@RequestParam String telephone,
+                                @RequestParam String color,
+                                @RequestParam String car_model,
+                                @RequestParam String car_plate,
+                                @RequestParam String city ){
+        Driver driver = driverRepository.findByTelephone(telephone);
+        driverRepository.deleteByTelephone(telephone);
+        driver.setColor(color);
+        driver.setCar_model(car_model);
+        driver.setCar_plate(car_plate);
+        driver.setCity(city);
+        driverRepository.save(driver);
+        return "success";
     }
 }

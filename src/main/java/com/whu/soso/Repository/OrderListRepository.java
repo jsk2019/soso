@@ -39,5 +39,4 @@ public interface OrderListRepository extends JpaRepository<OrderList, String> {
     @Query(value = "select * from order_list where order_type = ?1" ,nativeQuery = true)
     List<OrderList> findByOrder_type(Integer order_type);
 
-
 }

@@ -40,7 +40,8 @@ public class User {
     private double latitude;
     //城市
     private String city;
-
+    //ip
+    private String IP_address;
     @OneToMany(cascade = CascadeType.ALL)
     private List<OrderList> orderLists=new ArrayList<>();
 
@@ -130,5 +131,13 @@ public class User {
 
     public void setOrderLists(List<OrderList> orderLists) {
         this.orderLists = orderLists;
+    }
+
+    public String getIP_address() {
+        return IP_address;
+    }
+
+    public void setIP_address(String IP_address) {
+        this.IP_address = IP_address;
     }
 }
