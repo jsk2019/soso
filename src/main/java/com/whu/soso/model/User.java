@@ -38,6 +38,10 @@ public class User {
     private double longitude;
     //纬度
     private double latitude;
+    //账户余额
+    private int Balance;
+    //手机外网IP地址
+    private String IP_address;
     //城市
     private String city;
 
@@ -130,5 +134,21 @@ public class User {
 
     public void setOrderLists(List<OrderList> orderLists) {
         this.orderLists = orderLists;
+    }
+
+    public int getBalance() {
+        return Balance;
+    }
+
+    public void setBalance(int balance) {
+        Balance = balance;
+    }
+
+    public String getIP_address() {
+        return IP_address;
+    }
+
+    public void setIP_address(String IP_address) {
+        this.IP_address = IP_address;
     }
 }

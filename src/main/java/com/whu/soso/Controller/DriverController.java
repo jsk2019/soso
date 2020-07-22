@@ -13,13 +13,17 @@ package com.whu.soso.Controller;
 import com.alibaba.fastjson.JSONObject;
 import com.whu.soso.Repository.DriverRepository;
 import com.whu.soso.Service.FaceMatchService;
+import com.whu.soso.config.UserImageProperties;
 import com.whu.soso.model.Driver;
 import com.whu.soso.model.ReturnMessage;
 import com.whu.soso.model.User;
 import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import sun.rmi.runtime.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,6 +38,9 @@ public class DriverController {
 
     @Autowired
     DriverRepository driverRepository;
+
+    @Autowired
+    UserImageProperties userImageProperties;
 
     /**
      * 保存司机信息
@@ -125,12 +132,12 @@ public class DriverController {
     }
 
     @PostMapping(value="/faceLogin")
-    public Object getFaceDB(@RequestBody MultipartFile upload,@RequestParam String telephone ) throws Exception{
+    public Object getFaceDB(@RequestParam(value = "file") MultipartFile upload,@RequestParam("phone") String telephone ) throws Exception{
         //String filePath = new File("").getAbsolutePath();
         //System.out.println(filePath);
        // String imgPath1="E:\\soso\\src\\main\\resources\\timg.jpg";
         try {
-            String imgPath2="src\\main\\resources\\"+telephone+".jpg";
+            String imgPath2=userImageProperties.getLocalUrl()+telephone+".png";
             String result = FaceMatchService.match(upload, imgPath2);
             System.out.println(result);
             return result;
@@ -141,13 +148,14 @@ public class DriverController {
 
 
     @PostMapping(value = "/uploadPic")
-    public Object upLoadFile(@RequestBody MultipartFile upload,@RequestParam String telephone) {
-        String filePath = "E:\\soso\\src\\main\\resources\\static";
+    public Object upLoadFile(@RequestParam(value = "file") MultipartFile upload,@RequestParam("phone") String telephone) {
+//        String filePath = "E:\\soso\\src\\main\\resources\\userImage\\";
+        String filePath ="D:\\SoSoBack\\soso\\src\\main\\resources\\userImage\\";
         File file = new File(filePath);
         if (!file.exists()) {
             file.mkdirs();
         }
-        String newFileName = telephone+".jpg";
+        String newFileName = telephone+".png";
         String newFilePath = filePath + newFileName;
         try {
             upload.transferTo(new File(newFilePath));
@@ -158,5 +166,23 @@ public class DriverController {
             return e1;
         }
 
+    }
+
+
+    @PostMapping(value = "/uploadPicToLocal" )
+    @ResponseBody
+    public String upLoadFileLoc(@RequestParam(value = "file") MultipartFile upload,@RequestParam("phone") String telephone){
+        String localPath=userImageProperties.getLocalUrl()+upload.getOriginalFilename();
+        System.out.println(localPath);
+        File targetFile=new File(localPath);
+        try {
+            upload.transferTo(targetFile);
+            String imageUrl=userImageProperties.getHttpUrl()+upload.getOriginalFilename();
+            //存储用户脸部图像路径到数据库
+            driverRepository.UpdateDriverPersonImage(imageUrl,telephone);
+            return imageUrl;
+        } catch (IOException e) {
+           return "上传图片失败";
+        }
     }
 }

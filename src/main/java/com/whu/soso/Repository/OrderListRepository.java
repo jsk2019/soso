@@ -32,7 +32,7 @@ public interface OrderListRepository extends JpaRepository<OrderList, String> {
     @Modifying
     @Transactional
     @Query(value = "update order_list set driver_telephone=?1 where id=?2",nativeQuery = true)
-    void updateDriverTelephone(String phone,String id);
+    int updateDriverTelephone(String phone,String id);
 
     OrderList findOrderListById(String id);
 
