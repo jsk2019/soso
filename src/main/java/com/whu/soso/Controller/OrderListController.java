@@ -54,7 +54,7 @@ public class OrderListController {
      * @return
      */
     @PostMapping(value = "/create")
-    public OrderList CreareOrder(@RequestBody JSONObject orderList) throws ParseException {
+    public String CreareOrder(@RequestBody JSONObject orderList) throws ParseException {
         Map<String,Object> params = new HashMap<>();
         String userLon = orderList.getString("origin_longitude");
         String userLat = orderList.getString("origin_latitude");
@@ -73,16 +73,13 @@ public class OrderListController {
         String id = df.format(new Date());// new Date()为获取当前系统时间
         Date date1 = formatter.parse(appointment);
         User user = userRepository.findByTelephone(userTel);
-        List<Driver> drivers = driverRepository.findAllByCityAndStatus(city,0);
+        List<Driver> drivers = driverRepository.findAllByCityAndStatus(city,1);
         OrderListService orderListService = new OrderListService();
-        String tele =  orderListService.MatchingDriver(drivers,userLon,userLat);
-        Driver driver =  driverRepository.findByTelephone(tele);
         Double userLon1 = Double.parseDouble(userLon);
         Double userLat1 = Double.parseDouble(userLat);
         OrderList orderList1 = new OrderList();
         orderList1.setOrigin_longitude(userLon1);
         orderList1.setOrigin_latitude(userLat1);
-        orderList1.setDriver(driver);
         orderList1.setUser(user);
         orderList1.setOrigin_address(origin_address);
         orderList1.setOrder_type(order_type);
@@ -94,8 +91,34 @@ public class OrderListController {
         orderList1.setAppointment(date1);
         orderList1.setId(id);
         orderListRepository.save(orderList1);
-        return orderList1;
+        String tele =  orderListService.MatchingDriver(drivers,userLon,userLat);
+        Driver driver =  driverRepository.findByTelephone(tele);
+        return orderList1.getId();
     }
+
+    /**
+     * 匹配司机
+     * @param orderList
+     * @return
+     * @throws ParseException
+     */
+    @PostMapping(value = "/match")
+    public Object MatchOrder(@RequestBody JSONObject orderList) throws ParseException {
+     try {
+         String id = orderList.getString("id");
+         String userLon = orderList.getString("origin_longitude");
+         String userLat = orderList.getString("origin_latitude");
+         String city = orderList.getString("city");
+         List<Driver> drivers = driverRepository.findAllByCityAndStatus(city,1);
+         String tele =  orderListService.MatchingDriver(drivers,userLon,userLat);
+         Driver driver =  driverRepository.findByTelephone(tele);
+         orderListRepository.updateDriverTelephone(tele,id);
+         return driver;
+     }catch (Exception e){
+         return "匹配失败";
+     }
+    }
+
 
     /**
      * 删除订单
@@ -114,6 +137,11 @@ public class OrderListController {
         return new ReturnMessage(1);
     }
 
+    /**
+     * 获取所有订单
+     * @return
+     * @throws ParseException
+     */
     @GetMapping(value = "/listOrder")
     public Object ListOrder() throws ParseException {
         Map<String,Object> params = new HashMap<>();
@@ -127,6 +155,11 @@ public class OrderListController {
         return orderLists;
     }
 
+    /**
+     * 查看订单信息
+     * @param id
+     * @return
+     */
     @GetMapping(value = "/getInfo")
     public Object getInfo(@RequestParam String id){
         if (orderListRepository.existsById(id)){
@@ -135,4 +168,6 @@ public class OrderListController {
         }
         else return new ReturnMessage(0);
     }
+
+
 }

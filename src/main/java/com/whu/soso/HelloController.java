@@ -14,7 +14,7 @@ public class HelloController {
 
     @GetMapping("/")
     public Object hello(){
-        return new User();
+        return new Driver();
     }
 
     @PostMapping(value="/Test",produces = "application/json;charset=UTF-8")

@@ -10,15 +10,23 @@
 
 package com.whu.soso.Controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.whu.soso.Repository.DriverRepository;
+import com.whu.soso.Repository.OrderListRepository;
+import com.whu.soso.Service.APIService;
 import com.whu.soso.Service.FaceMatchService;
+import com.whu.soso.Service.LicenseService;
+import com.whu.soso.Util.Base64Util;
+import com.whu.soso.config.CarPicProperties;
 import com.whu.soso.config.UserImageProperties;
 import com.whu.soso.model.Driver;
+import com.whu.soso.model.OrderList;
 import com.whu.soso.model.ReturnMessage;
 import com.whu.soso.model.User;
 import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +36,7 @@ import sun.rmi.runtime.Log;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -38,10 +47,12 @@ public class DriverController {
 
     @Autowired
     DriverRepository driverRepository;
-
+    @Autowired
+    OrderListRepository orderListRepository;
     @Autowired
     UserImageProperties userImageProperties;
-
+    @Autowired
+    CarPicProperties carPicProperties;
     /**
      * 保存司机信息
      * @param driver
@@ -51,7 +62,7 @@ public class DriverController {
     public ReturnMessage RegisteredDirver(@RequestBody Driver driver) {
         Driver driver1 = driverRepository.findByTelephone(driver.getTelephone());
         if (driver1 == null) {
-            driver.setStatus(2);
+            driver.setStatus(0);
             driverRepository.save(driver);
             return new ReturnMessage(1);
         } else {
@@ -131,6 +142,13 @@ public class DriverController {
         return new JSONObject(params);
     }
 
+    /**
+     * 人脸识别登陆
+     * @param upload
+     * @param telephone
+     * @return
+     * @throws Exception
+     */
     @PostMapping(value="/faceLogin")
     public Object getFaceDB(@RequestParam(value = "file") MultipartFile upload,@RequestParam("phone") String telephone ) throws Exception{
         //String filePath = new File("").getAbsolutePath();
@@ -146,32 +164,100 @@ public class DriverController {
         }
     }
 
+    @PostMapping(value = "/password")
+    public Object UpdatePassword(@RequestParam String telephone,@RequestParam String oldPassword,@RequestParam String newPassword){
+       try {
+           Driver driver = driverRepository.findByTelephone(telephone);
+           if (driver.getPassword()==oldPassword){
+               driverRepository.UpdateDriverPassword(newPassword,telephone);
+           }
+       }catch (NullPointerException e)
+       {
+           return "null";
+       }
+       return "success";
+    }
 
-    @PostMapping(value = "/uploadPic")
-    public Object upLoadFile(@RequestParam(value = "file") MultipartFile upload,@RequestParam("phone") String telephone) {
-//        String filePath = "E:\\soso\\src\\main\\resources\\userImage\\";
-        String filePath ="D:\\SoSoBack\\soso\\src\\main\\resources\\userImage\\";
-        File file = new File(filePath);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        String newFileName = telephone+".png";
-        String newFilePath = filePath + newFileName;
+    /**
+     * 修改电话号码
+     * @param oldTelephone
+     * @param newTelephone
+     * @return
+     */
+    @PostMapping(value = "/telephone")
+    public Object UpdateTelephone(@RequestParam String oldTelephone,@RequestParam String newTelephone){
         try {
-            upload.transferTo(new File(newFilePath));
-            return newFileName;
-        } catch (IllegalStateException e) {
-            return e;
-        } catch (IOException e1) {
-            return e1;
+            Driver driver = driverRepository.findByTelephone(oldTelephone);
+            driverRepository.UpdateDriverTel(newTelephone,oldTelephone);
+        }catch (NullPointerException e)
+        {
+            return "null";
         }
+        return "success";
+    }
 
+    /**
+     * 修改汽车信息
+     * @param telephone
+     * @param color
+     * @param car_model
+     * @param car_plate
+     * @param city
+     * @return
+     */
+    @PostMapping(value = "/car")
+    public Object UpdateCarinfo(@RequestParam String telephone,
+                                @RequestParam String color,
+                                @RequestParam String car_model,
+                                @RequestParam String car_plate,
+                                @RequestParam String city ) {
+        Driver driver = driverRepository.findByTelephone(telephone);
+        driverRepository.deleteByTelephone(telephone);
+        driver.setColor(color);
+        driver.setCar_model(car_model);
+        driver.setCar_plate(car_plate);
+        driver.setCity(city);
+        driverRepository.save(driver);
+        return "success";
+    }
+
+
+
+
+
+    /**
+     * 司机接预约单
+     * @param id
+     * @param telephone
+     * @return
+     */
+    @PostMapping(value = "/bookingOrder")
+    public Object BookingOrder(@RequestParam String id,@RequestParam String telephone){
+        if(orderListRepository.existsById(id)){
+            orderListRepository.updateDriverTelephone(telephone,id);
+            return "success";
+        }
+        else {return false;}
+    }
+
+    /**
+     * 获取司机订单
+     * @param telephone
+     * @return
+     */
+    @GetMapping(value = "/getOrderInfo")
+    public Object getOrderInfo(@RequestParam String telephone) {
+        Driver driver = driverRepository.findByTelephone(telephone);
+        List<OrderList> lists = orderListRepository.findByDriver(driver);
+        if (lists.size() == 0) {
+            return "null";
+        } else return lists;
     }
 
 
     @PostMapping(value = "/uploadPicToLocal" )
     @ResponseBody
-    public String upLoadFileLoc(@RequestParam(value = "file") MultipartFile upload,@RequestParam("phone") String telephone){
+    public String upLoadFileLoc(@RequestParam MultipartFile upload,@RequestParam String telephone){
         String localPath=userImageProperties.getLocalUrl()+upload.getOriginalFilename();
         System.out.println(localPath);
         File targetFile=new File(localPath);
@@ -182,7 +268,39 @@ public class DriverController {
             driverRepository.UpdateDriverPersonImage(imageUrl,telephone);
             return imageUrl;
         } catch (IOException e) {
-           return "上传图片失败";
+            return "上传图片失败";
         }
     }
+
+    @PostMapping(value = "/uploadCarPic" )
+    @ResponseBody
+    public String upLoadCarPic(@RequestParam MultipartFile upload,@RequestParam String telephone){
+        String localPath=carPicProperties.getLocalUrl()+upload.getOriginalFilename();
+        System.out.println(localPath);
+        File targetFile=new File(localPath);
+        try {
+            upload.transferTo(targetFile);
+            String imageUrl=carPicProperties.getHttpUrl()+upload.getOriginalFilename();
+            //存储用户脸部图像路径到数据库
+            driverRepository.UpdateDriverCarImage(imageUrl,telephone);
+            return imageUrl;
+        } catch (IOException e) {
+            return "上传图片失败";
+        }
+    }
+
+    @GetMapping(value = "/license")
+    public Object DriverLicense(@RequestParam MultipartFile file,@RequestParam String telephone) {
+      try {
+          String result = LicenseService.drivingLicense(file);
+          JSONObject jsonObject =  LicenseService.getInfo(result);
+          String name = jsonObject.getString("name");
+          driverRepository.UpdateDrivername(name,telephone);
+          return jsonObject;
+      }catch (Exception e){
+          return "fail";
+      }
+    }
 }
+
+

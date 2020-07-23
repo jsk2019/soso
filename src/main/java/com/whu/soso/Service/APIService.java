@@ -16,11 +16,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
+import sun.misc.BASE64Encoder;
 
 import javax.sound.midi.Soundbank;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -85,6 +85,77 @@ public class APIService {
             }
         }
         return key;
+    }
+
+    public String GetLicense(String image1,String key){
+        //用JAVA发起http请求，并返回json格式的结果
+        String serverUrl = "http://apis.juhe.cn/drivingLicenseOcr/index?image="+image1+"&key="+key;
+        System.out.println(serverUrl);
+        StringBuffer result = new StringBuffer();
+        try {
+            URL url = new URL(serverUrl);
+            URLConnection conn = url.openConnection();
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+
+            String line;
+            while((line = in.readLine()) != null){
+                result.append(line);
+            }
+            in.close();
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String resultstring  = result.toString();
+
+        return resultstring;
+    }
+    public static String ImageToBase64ByOnline(String imgURL) {
+        ByteArrayOutputStream data = new ByteArrayOutputStream();
+        try {
+            // 创建URL
+            URL url = new URL(imgURL);
+            byte[] by = new byte[1024];
+            // 创建链接
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setConnectTimeout(5000);
+            InputStream is = conn.getInputStream();
+            // 将内容读取内存中
+            int len = -1;
+            while ((len = is.read(by)) != -1) {
+                data.write(by, 0, len);
+            }
+            // 关闭流
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // 对字节数组Base64编码
+        BASE64Encoder encoder = new BASE64Encoder();
+        return encoder.encode(data.toByteArray());
+    }
+
+    public static String ImageToBase64ByLocal(String imgFile) {// 将图片文件转化为字节数组字符串，并对其进行Base64编码处理
+        InputStream in = null;
+        byte[] data = null;
+
+        // 读取图片字节数组
+        try {
+            in = new FileInputStream(imgFile);
+
+            data = new byte[in.available()];
+            in.read(data);
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // 对字节数组Base64编码
+        BASE64Encoder encoder = new BASE64Encoder();
+
+        return encoder.encode(data);// 返回Base64编码过的字节数组字符串
     }
 
 }

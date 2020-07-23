@@ -25,8 +25,8 @@ public class Driver {
     private String password;
     //身份证号
     private String ID_num;
-    //车名
-    private String car_name;
+    //颜色
+    private String color;
     //车型
     private String car_model;
     //车牌号
@@ -99,12 +99,12 @@ public class Driver {
         this.ID_num = ID_num;
     }
 
-    public String getCar_name() {
-        return car_name;
+    public String getColor() {
+        return color;
     }
 
-    public void setCar_name(String car_name) {
-        this.car_name = car_name;
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public String getCar_model() {

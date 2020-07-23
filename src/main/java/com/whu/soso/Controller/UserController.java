@@ -13,6 +13,7 @@ package com.whu.soso.Controller;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.JSONObjectCodec;
 import com.whu.soso.Repository.UserRepository;
+import com.whu.soso.model.Driver;
 import com.whu.soso.model.ReturnMessage;
 import com.whu.soso.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,5 +84,42 @@ public class UserController {
         return s;
     }
 
+    @PostMapping(value = "/password")
+    public Object UpdatePassword(@RequestParam String telephone,@RequestParam String oldPassword,@RequestParam String newPassword){
+        try {
+            User user = userRepository.findByTelephone(telephone);
+            if (user.getPassword()==oldPassword){
+                userRepository.UpdateUserPassword(newPassword,telephone);
+            }
+        }catch (NullPointerException e)
+        {
+            return "null";
+        }
+        return "success";
+    }
+
+    @PostMapping(value = "/telephone")
+    public Object UpdateTelephone(@RequestParam String oldTelephone,String newTelephone){
+        try {
+            User user = userRepository.findByTelephone(oldTelephone);
+            userRepository.UpdateUserTel(newTelephone,oldTelephone);
+        }catch (NullPointerException e)
+        {
+            return "null";
+        }
+        return "success";
+    }
+
+    @PostMapping(value = "/nickname")
+    public Object UpdateNickName(@RequestParam String telephone,@RequestParam String nickname){
+        try {
+            User user = userRepository.findByTelephone(telephone);
+            userRepository.UpdateUserName(nickname,telephone);
+        }catch (NullPointerException e)
+        {
+            return "null";
+        }
+        return "success";
+    }
 
 }

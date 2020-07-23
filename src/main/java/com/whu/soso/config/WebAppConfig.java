@@ -13,6 +13,9 @@ public class WebAppConfig implements WebMvcConfigurer {
     @Autowired
     private UserImageProperties userImageProperties;
 
+    @Autowired
+    private CarPicProperties carPicProperties;
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
@@ -20,6 +23,9 @@ public class WebAppConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/userImage/**").addResourceLocations("file:"+
                 userImageProperties.getLocalUrl());
 
+
+        registry.addResourceHandler("/carImage/**").addResourceLocations("file:"+
+                carPicProperties.getLocalUrl());
 
     }
 
