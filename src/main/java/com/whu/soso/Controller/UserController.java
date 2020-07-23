@@ -10,14 +10,23 @@
 
 package com.whu.soso.Controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.JSONObjectCodec;
 import com.whu.soso.Repository.UserRepository;
 import com.whu.soso.model.Driver;
 import com.whu.soso.model.ReturnMessage;
 import com.whu.soso.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+import org.springframework.web.bind.annotation.*;
+
+
 @RestController
+
 public class UserController {
     @Autowired
     UserRepository userRepository;
@@ -29,15 +38,23 @@ public class UserController {
      *          2：注册失败，手机号已被注册
      */
     @PostMapping(value = "/registered")
-    public ReturnMessage Registered(@RequestBody User user) {
-        User user1 = userRepository.findByTelephone(user.getTelephone());
-        if (user1 == null) {
-            userRepository.save(user);
-            return new ReturnMessage(1);
-        } else {
-            return new ReturnMessage(0);
-        }
+
+    public JSONObject Registered(@RequestBody User user) {
+        //用一个map保存responseBody 将来转成json
+                Map<String,Object> params=new HashMap<>();
+                //如果用户不存在
+                if (!userRepository.existsById(user.getTelephone())) {
+
+                        userRepository.save(user);
+                        //Status：1 注册成功  0注册失败
+                        params.put("status",1);
+                 } else {
+                         params.put("status",0);
+                }
+                return new JSONObject(params);
     }
+
+
 
     /**
      *
@@ -58,6 +75,7 @@ public class UserController {
             return new ReturnMessage(0);
         }
     }
+
 
 
     @PostMapping(value = "/upload")
@@ -103,4 +121,5 @@ public class UserController {
         }
         return "success";
     }
+
 }

@@ -10,6 +10,7 @@
 
 package com.whu.soso.Repository;
 
+import com.whu.soso.model.Driver;
 import com.whu.soso.model.OrderList;
 import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 import org.springframework.data.domain.Page;
@@ -32,11 +33,12 @@ public interface OrderListRepository extends JpaRepository<OrderList, String> {
     @Modifying
     @Transactional
     @Query(value = "update order_list set driver_telephone=?1 where id=?2",nativeQuery = true)
-    void updateDriverTelephone(String phone,String id);
+    int updateDriverTelephone(String phone,String id);
 
     OrderList findOrderListById(String id);
 
     @Query(value = "select * from order_list where order_type = ?1" ,nativeQuery = true)
     List<OrderList> findByOrder_type(Integer order_type);
 
+    List<OrderList> findByDriver(Driver driver);
 }

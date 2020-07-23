@@ -42,6 +42,21 @@ public interface DriverRepository extends JpaRepository<Driver, String> {
     @Query(value = "update driver set status=?1 where telephone=?2",nativeQuery = true)
     void UpdateDriverStatus(Integer status,String telephone);
 
+    @Modifying
+    @Transactional
+    @Query(value = "update driver set person_pic=?1 where telephone=?2",nativeQuery = true)
+    int UpdateDriverPersonImage(String path,String telephone);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update driver set car_pic=?1 where telephone=?2",nativeQuery = true)
+    int UpdateDriverCarImage(String path,String telephone);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update driver set name=?1 where telephone=?2",nativeQuery = true)
+    void UpdateDrivername(String name,String telephone);
+
     Driver existsByTelephone(String telephone);
 
     @Modifying

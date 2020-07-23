@@ -103,16 +103,20 @@ public class OrderListController {
      * @throws ParseException
      */
     @PostMapping(value = "/match")
-    public Driver MatchOrder(@RequestBody JSONObject orderList) throws ParseException {
-        String id = orderList.getString("id");
-        String userLon = orderList.getString("origin_longitude");
-        String userLat = orderList.getString("origin_latitude");
-        String city = orderList.getString("city");
-        List<Driver> drivers = driverRepository.findAllByCityAndStatus(city,1);
-        String tele =  orderListService.MatchingDriver(drivers,userLon,userLat);
-        Driver driver =  driverRepository.findByTelephone(tele);
-        orderListRepository.updateDriverTelephone(tele,id);
-        return driver;
+    public Object MatchOrder(@RequestBody JSONObject orderList) throws ParseException {
+     try {
+         String id = orderList.getString("id");
+         String userLon = orderList.getString("origin_longitude");
+         String userLat = orderList.getString("origin_latitude");
+         String city = orderList.getString("city");
+         List<Driver> drivers = driverRepository.findAllByCityAndStatus(city,1);
+         String tele =  orderListService.MatchingDriver(drivers,userLon,userLat);
+         Driver driver =  driverRepository.findByTelephone(tele);
+         orderListRepository.updateDriverTelephone(tele,id);
+         return driver;
+     }catch (Exception e){
+         return "匹配失败";
+     }
     }
 
 
