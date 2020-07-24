@@ -33,11 +33,14 @@ public class OrderList {
     private Driver driver;
     //订单创建时间
 
-
-    //@Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
-    //预约出发时间
 
+
+    @PrePersist
+    void prePersist(){
+        this.createTime=new Date();
+    }
+    //预约出发时间
     @Temporal(TemporalType.TIMESTAMP)
     private Date appointment;
 

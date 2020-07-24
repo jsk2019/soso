@@ -3,11 +3,13 @@ package com.whu.soso;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.whu.soso.Repository.ChatRecordRepository;
 import com.whu.soso.Repository.DriverRepository;
 import com.whu.soso.Repository.OrderListRepository;
 import com.whu.soso.Repository.UserRepository;
 import com.whu.soso.Service.APIService;
 import com.whu.soso.Service.OrderListService;
+import com.whu.soso.model.ChatRecord;
 import com.whu.soso.model.Driver;
 import com.whu.soso.model.User;
 import org.junit.Assert;
@@ -33,6 +35,9 @@ public class JpaTests {
     private OrderListRepository orderListRepository;
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+            private ChatRecordRepository chatRecordRepository;
 
     OrderListService orderListService = new OrderListService();
 
@@ -130,6 +135,14 @@ public class JpaTests {
         Date date = (Date) sdf.parse(str);
         String formatStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
         System.out.println(formatStr);
+    }
+
+    @Test
+    public void saveRecordTest(){
+
+        ChatRecord chatRecord =new ChatRecord();
+        chatRecord.setRecord("dwadw");
+        chatRecordRepository.save(chatRecord);
     }
 
 

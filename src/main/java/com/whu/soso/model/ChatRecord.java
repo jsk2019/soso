@@ -12,6 +12,7 @@ package com.whu.soso.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -23,15 +24,21 @@ public class ChatRecord {
     private int id;
 
     //用户手机号码
-    private String user_tell;
+    private String receiverPhone;
     //司机手机号码
-    private String driver_tell;
+    private String senderPhone;
     //消息发送时间
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date char_time;
+
+    private Date charTime;
     //消息记录
     private String record;
 
+    @PrePersist
+    void prePersist(){
+        this.charTime=new Date();
+    }
+
+    @Column()
     public int getId() {
         return id;
     }
@@ -40,28 +47,28 @@ public class ChatRecord {
         this.id = id;
     }
 
-    public String getUser_tell() {
-        return user_tell;
+    public String getReceiverPhone() {
+        return receiverPhone;
     }
 
-    public void setUser_tell(String user_tell) {
-        this.user_tell = user_tell;
+    public void setReceiverPhone(String ReceiverPhone) {
+        this.receiverPhone = ReceiverPhone;
     }
 
-    public String getDriver_tell() {
-        return driver_tell;
+    public String getSenderPhone() {
+        return senderPhone;
     }
 
-    public void setDriver_tell(String driver_tell) {
-        this.driver_tell = driver_tell;
+    public void setSenderPhone(String SenderPhone) {
+        this.senderPhone = SenderPhone;
     }
 
-    public Date getChar_time() {
-        return char_time;
+    public Date getCharTime() {
+        return charTime;
     }
 
-    public void setChar_time(Date char_time) {
-        this.char_time = char_time;
+    public void setCharTime(Date charTime) {
+        this.charTime = charTime;
     }
 
     public String getRecord() {

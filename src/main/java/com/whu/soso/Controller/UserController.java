@@ -64,10 +64,13 @@ public class UserController {
      *          2：用户名或密码错误
      */
     @PostMapping(value = "/login")
-    public ReturnMessage LoginInPassword(@RequestParam String telephone, @RequestParam String password) {
+    public ReturnMessage LoginInPassword(@RequestParam String telephone,@RequestParam String ip, @RequestParam String password) {
         try {
             User user = userRepository.findByTelephone(telephone);
             if (password.equals(user.getPassword())) {
+                user.setIP_address(ip);
+                System.out.println(ip);
+                userRepository.save(user);
                 return new ReturnMessage(1);
             }
             return new ReturnMessage(0);
