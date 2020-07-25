@@ -71,10 +71,13 @@ public class DriverController {
     }
 
     @PostMapping(value = "/login")
-    public ReturnMessage LoginInPassword(@RequestParam String telephone, @RequestParam String password) {
+    public ReturnMessage LoginInPassword(@RequestParam String telephone, @RequestParam String password,@RequestParam
+                                         String ip) {
         try {
             Driver user = driverRepository.findByTelephone(telephone);
             if (password.equals(user.getPassword())) {
+                user.setIP_address(ip);
+                driverRepository.save(user);
                 return new ReturnMessage(1);
             }
             return new ReturnMessage(0);
@@ -245,14 +248,12 @@ public class DriverController {
      * @param telephone
      * @return
      */
-    @GetMapping(value = "/getOrderInfo")
+    @GetMapping(value = "/getDriverOrders")
     public Object getOrderInfo(@RequestParam String telephone) {
         Driver driver = driverRepository.findByTelephone(telephone);
-        List<OrderList> lists = orderListRepository.findByDriver(driver);
-        if (lists.size() == 0) {
-            return "null";
-        } else return lists;
+        return orderListRepository.findOrderListsByDriverOrderByCreateTimeDesc(driver);
     }
+
 
 
     @PostMapping(value = "/uploadPicToLocal" )

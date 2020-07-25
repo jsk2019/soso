@@ -17,14 +17,12 @@ import com.whu.soso.Repository.OrderListRepository;
 import com.whu.soso.Repository.UserRepository;
 import com.whu.soso.Service.APIService;
 import com.whu.soso.Service.OrderListService;
-import com.whu.soso.model.Driver;
-import com.whu.soso.model.OrderList;
-import com.whu.soso.model.ReturnMessage;
-import com.whu.soso.model.User;
+import com.whu.soso.model.*;
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.Id;
@@ -50,74 +48,37 @@ public class OrderListController {
     APIService apiService = new APIService();
     /**
      *创建订单，匹配司机
-     * @param orderList
+     * @param jsonObject
      * @return
-     */
-    @PostMapping(value = "/create")
-    public String CreareOrder(@RequestBody JSONObject orderList) throws ParseException {
-        Map<String,Object> params = new HashMap<>();
-        String userLon = orderList.getString("origin_longitude");
-        String userLat = orderList.getString("origin_latitude");
-        String city = orderList.getString("city");
-        Double destination_longitude = Double.parseDouble(orderList.getString("destination_longitude"));
-        Double destination_latitude = Double.parseDouble(orderList.getString("destination_latitude"));
-        String destination_address = orderList.getString("destination_address");
-        String userTel = orderList.getString("telephone");
-        String origin_address = orderList.getString("origin_address");
-        String createTime = orderList.getString("createTime");
-        String appointment = orderList.getString("appointment");
-        Integer order_type = Integer.valueOf(orderList.getString("order_type"));
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-        Date date = formatter.parse(createTime);
-        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
-        String id = df.format(new Date());// new Date()为获取当前系统时间
-        Date date1 = formatter.parse(appointment);
-        User user = userRepository.findByTelephone(userTel);
-        List<Driver> drivers = driverRepository.findAllByCityAndStatus(city,1);
-        OrderListService orderListService = new OrderListService();
-        Double userLon1 = Double.parseDouble(userLon);
-        Double userLat1 = Double.parseDouble(userLat);
-        OrderList orderList1 = new OrderList();
-        orderList1.setOrigin_longitude(userLon1);
-        orderList1.setOrigin_latitude(userLat1);
-        orderList1.setUser(user);
-        orderList1.setOrigin_address(origin_address);
-        orderList1.setOrder_type(order_type);
-        orderList1.setDestination_address(destination_address);
-        orderList1.setDes_latitude(destination_latitude);
-        orderList1.setDes_longitude(destination_longitude);
-        orderList1.setOrigin_time(date);
-        orderList1.setCreateTime(date);
-        orderList1.setAppointment(date1);
-        orderList1.setId(id);
-        orderListRepository.save(orderList1);
-        String tele =  orderListService.MatchingDriver(drivers,userLon,userLat);
-        Driver driver =  driverRepository.findByTelephone(tele);
-        return orderList1.getId();
-    }
-
-    /**
-     * 匹配司机
-     * @param orderList
-     * @return
-     * @throws ParseException
      */
     @PostMapping(value = "/match")
-    public Object MatchOrder(@RequestBody JSONObject orderList) throws ParseException {
-     try {
-         String id = orderList.getString("id");
-         String userLon = orderList.getString("origin_longitude");
-         String userLat = orderList.getString("origin_latitude");
-         String city = orderList.getString("city");
-         List<Driver> drivers = driverRepository.findAllByCityAndStatus(city,1);
-         String tele =  orderListService.MatchingDriver(drivers,userLon,userLat);
-         Driver driver =  driverRepository.findByTelephone(tele);
-         orderListRepository.updateDriverTelephone(tele,id);
-         return driver;
-     }catch (Exception e){
-         return "匹配失败";
-     }
+    public MyResult CreateOrder(@RequestBody JSONObject jsonObject) throws ParseException {
+        String orderId="N"+ new Date().getTime();
+        jsonObject.put("id",orderId);
+        OrderList orderList=jsonObject.toJavaObject(OrderList.class);
+
+        //如果不是预约单
+        if(jsonObject.getInteger("order_type")==0) {
+            try {
+                String id = jsonObject.getString("id");
+                String userLon = jsonObject.getString("origin_longitude");
+                String userLat = jsonObject.getString("origin_latitude");
+                String city = jsonObject.getString("city");
+                List<Driver> drivers = driverRepository.findAllByCityAndStatus(city, 1);
+                if (drivers.size() > 0) {
+                    String tele = orderListService.MatchingDriver(drivers, userLon, userLat);
+                    Driver driver = driverRepository.findByTelephone(tele);
+                    orderListRepository.updateDriverTelephone(tele, id);
+                    return new MyResult().status(200).msg("匹配成功").result(driver);
+                } else return new MyResult().status(600).msg("未成功匹配到司机");
+            } catch (Exception e) {
+                return new MyResult().msg("匹配异常").status(601);
+            }
+        }
+        return null;
+
     }
+
 
 
     /**

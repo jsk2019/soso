@@ -38,7 +38,7 @@ public class OrderListService {
      * @param userLat
      * @return 匹配到的司机的电话号码
      */
-    public String MatchingDriver(List<Driver> drivers,String userLon,String userLat){
+    public String MatchingDriver(List<Driver> drivers,String userLon,String userLat)throws Exception{
         Map<String,Long> distanceMap = new HashMap<>();
         APIService apiService = new APIService();
         for (int i=0;i<drivers.size();i++){

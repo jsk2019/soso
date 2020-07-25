@@ -12,6 +12,7 @@ package com.whu.soso.Controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.JSONObjectCodec;
+import com.whu.soso.Repository.OrderListRepository;
 import com.whu.soso.Repository.UserRepository;
 import com.whu.soso.model.Driver;
 import com.whu.soso.model.ReturnMessage;
@@ -30,6 +31,9 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    OrderListRepository orderListRepository ;
 
     /**
      *
@@ -55,6 +59,11 @@ public class UserController {
     }
 
 
+    @GetMapping(value = "/getUserOrders")
+    public Object getOrderInfo(@RequestParam String telephone) {
+        User user=userRepository.findByTelephone(telephone);
+        return orderListRepository.findOrderListsByUserOrderByCreateTimeDesc(user);
+    }
 
     /**
      *

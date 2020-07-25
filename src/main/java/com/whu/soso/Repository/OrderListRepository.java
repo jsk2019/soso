@@ -12,6 +12,7 @@ package com.whu.soso.Repository;
 
 import com.whu.soso.model.Driver;
 import com.whu.soso.model.OrderList;
+import com.whu.soso.model.User;
 import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,4 +42,7 @@ public interface OrderListRepository extends JpaRepository<OrderList, String> {
     List<OrderList> findByOrder_type(Integer order_type);
 
     List<OrderList> findByDriver(Driver driver);
+    List<OrderList> findOrderListsByUserOrderByCreateTimeDesc(User user);
+    List<OrderList> findOrderListsByDriverOrderByCreateTimeDesc(Driver driver);
+
 }
